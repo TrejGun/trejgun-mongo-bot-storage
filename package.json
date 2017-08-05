@@ -2,9 +2,13 @@
   "name": "mongo-bot-storage",
   "title": "mongo bot storage",
   "description": "mongo bot storage",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "homepage": "http://mabp.kiev.ua/",
-  "keywords": ["mongo", "storage", "BotBuilder"],
+  "keywords": [
+    "mongo",
+    "storage",
+    "BotBuilder"
+  ],
   "author": {
     "name": "TrejGun",
     "email": "TrejGun@gmail.com",
