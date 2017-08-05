@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-base"
+  ],
+  "rules": {
+    "no-tabs": [
+      0
+    ],
+    "indent": [
+      0,
+      "tab"
+    ],
+    "quotes": [
+      2,
+      "double"
+    ],
+    "max-len": [
+      0
+    ],
+    "arrow-parens": [
+      2,
+      "as-needed"
+    ],
+    "object-curly-spacing": [
+      2,
+      "never"
+    ]
+  }
+}

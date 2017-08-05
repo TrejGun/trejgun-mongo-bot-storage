@@ -1,0 +1,49 @@
+{
+  "name": "mongo-bot-storage",
+  "title": "mongo bot storage",
+  "description": "mongo bot storage",
+  "version": "0.0.0",
+  "homepage": "http://mabp.kiev.ua/",
+  "keywords": ["mongo", "storage", "BotBuilder"],
+  "author": {
+    "name": "TrejGun",
+    "email": "TrejGun@gmail.com",
+    "url": "http://mabp.kiev.ua/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TrejGun/mongo-bot-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TrejGun/mongo-bot-storage/issues"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "src/",
+    "lib/"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "async": "2.3.0",
+    "mongoose": "4.11.3"
+  },
+  "devDependencies": {
+    "babel-cli": "7.0.0-alpha.17",
+    "babel-core": "7.0.0-alpha.17",
+    "babel-eslint": "7.2.3",
+    "babel-preset-env": "2.0.0-alpha.17",
+    "eslint": "4.3.0",
+    "eslint-config-airbnb-base": "11.3.1",
+    "eslint-plugin-import": "2.7.0",
+    "rimraf": "2.6.1"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "scripts": {
+    "lint": "node_modules/.bin/eslint ./src --quiet --fix",
+    "prebuild": "node_modules/.bin/rimraf ./lib",
+    "build": "node_modules/.bin/babel -d ./lib ./src",
+    "release": "release () { git checkout master && git pull origin master && if [ -z $1 ]; then npm version patch; else npm version $1; fi && git push origin master --tags && npm publish; }; release"
+  }
+}
