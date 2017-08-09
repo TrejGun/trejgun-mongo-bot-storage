@@ -2,7 +2,7 @@
   "name": "mongo-bot-storage",
   "title": "mongo bot storage",
   "description": "mongo bot storage",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "http://mabp.kiev.ua/",
   "keywords": [
     "mongo",
