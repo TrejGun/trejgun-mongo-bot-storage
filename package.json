@@ -29,12 +29,13 @@
   "license": "MIT",
   "dependencies": {
     "async": "2.3.0",
-    "mongoose": "4.11.3"
+    "mongodb": "2.2.31"
   },
   "devDependencies": {
     "babel-cli": "7.0.0-alpha.17",
     "babel-core": "7.0.0-alpha.17",
     "babel-eslint": "7.2.3",
+    "babel-plugin-transform-class-properties": "7.0.0-alpha.17",
     "babel-preset-env": "2.0.0-alpha.17",
     "eslint": "4.3.0",
     "eslint-config-airbnb-base": "11.3.1",

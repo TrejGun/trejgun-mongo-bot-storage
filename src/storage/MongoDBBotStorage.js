@@ -5,9 +5,17 @@ const HASH = "HASH";
 const FIELDS = {
 	UserDataField: "userData",
 	ConversationDataField: "conversationData",
-	PrivateConversationDataField: "privateConversationData",
+	PrivateConversationDataField: "privateConversationData"
 };
 
+function addWrite(list, data, field, partitionKey, rowKey, botData) {
+	const hashKey = field + HASH;
+	const hash = JSON.stringify(botData);
+	if (!data[hashKey] || data[hashKey] !== hash) {
+		Object.assign(data, {[hashKey]: hash});
+		list.push({field, partitionKey, rowKey, botData, hash});
+	}
+}
 
 export default class MongoDbBotStorage /* implements IBotStorage */ {
 	constructor(storageClient) {
@@ -15,72 +23,84 @@ export default class MongoDbBotStorage /* implements IBotStorage */ {
 	}
 
 	getData(context, callback) {
-		const list = [];
+		this.initializeStorageClient()
+			.then(() => {
+				const list = [];
 
-		if (context.userId && context.persistUserData) {
-			list.push({
-				partitionKey: context.userId,
-				rowKey: FIELDS.UserDataField,
-				field: FIELDS.UserDataField,
-			});
-		}
-		if (context.userId && context.conversationId) {
-			list.push({
-				partitionKey: context.conversationId,
-				rowKey: context.userId,
-				field: FIELDS.PrivateConversationDataField,
-			});
-		}
-		if (context.persistConversationData && context.conversationId) {
-			list.push({
-				partitionKey: context.conversationId,
-				rowKey: FIELDS.ConversationDataField,
-				field: FIELDS.ConversationDataField,
-			});
-		}
-
-		const data = {};
-		async.each(list, (entry, errorCallback) => {
-			this.storageClient.retrieve(entry.partitionKey, entry.rowKey, (error, entity) => {
-				if (error) {
-					errorCallback(error);
-				} else if (entity) {
-					data[entry.field + HASH] = JSON.stringify(entity.data);
-					data[entry.field] = entity.data;
-					errorCallback(null);
-				} else {
-					errorCallback(null);
+				if (context.userId && context.persistUserData) {
+					list.push({
+						partitionKey: context.userId,
+						rowKey: FIELDS.UserDataField,
+						field: FIELDS.UserDataField
+					});
 				}
-			});
-		}, error => {
-			callback(error, data);
-		});
+				if (context.userId && context.conversationId) {
+					list.push({
+						partitionKey: context.conversationId,
+						rowKey: context.userId,
+						field: FIELDS.PrivateConversationDataField
+					});
+				}
+				if (context.persistConversationData && context.conversationId) {
+					list.push({
+						partitionKey: context.conversationId,
+						rowKey: FIELDS.ConversationDataField,
+						field: FIELDS.ConversationDataField
+					});
+				}
+
+				const data = {};
+				async.each(list, (entry, errorCallback) => {
+					this.storageClient.retrieve(entry.partitionKey, entry.rowKey, (error, entity) => {
+						if (error) {
+							errorCallback(error);
+						} else if (entity) {
+							data[entry.field + HASH] = JSON.stringify(entity.data);
+							data[entry.field] = entity.data;
+							errorCallback(null);
+						} else {
+							errorCallback(null);
+						}
+					});
+				}, error => {
+					callback(error, data);
+				});
+			}).catch(callback);
 	}
 
 	saveData(context, data, callback = Function) {
-		const list = [];
+		this.initializeStorageClient()
+			.then(() => {
+				const list = [];
 
-		function addWrite(field, partitionKey, rowKey, botData) {
-			const hashKey = field + HASH;
-			const hash = JSON.stringify(botData);
-			if (!data[hashKey] || data[hashKey] !== hash) {
-				Object.assign(data, {[hashKey]: hash});
-				list.push({field, partitionKey, rowKey, botData, hash});
-			}
-		}
+				if (context.userId && context.persistUserData) {
+					addWrite(list, data, FIELDS.UserDataField, context.userId, FIELDS.UserDataField, data.userData);
+				}
+				if (context.userId && context.conversationId) {
+					addWrite(list, data, FIELDS.PrivateConversationDataField, context.conversationId, context.userId, data.privateConversationData);
+				}
+				if (context.persistConversationData && context.conversationId) {
+					addWrite(list, data, FIELDS.ConversationDataField, context.conversationId, FIELDS.ConversationDataField, data.conversationData);
+				}
 
-		if (context.userId && context.persistUserData) {
-			addWrite(FIELDS.UserDataField, context.userId, FIELDS.UserDataField, data.userData);
-		}
-		if (context.userId && context.conversationId) {
-			addWrite(FIELDS.PrivateConversationDataField, context.conversationId, context.userId, data.privateConversationData);
-		}
-		if (context.persistConversationData && context.conversationId) {
-			addWrite(FIELDS.ConversationDataField, context.conversationId, FIELDS.ConversationDataField, data.conversationData);
-		}
+				async.each(list, (entry, errorCallback) => {
+					this.storageClient.insertOrReplace(entry.partitionKey, entry.rowKey, entry.botData, errorCallback);
+				}, callback);
+			}).catch(callback);
+	}
 
-		async.each(list, (entry, errorCallback) => {
-			this.storageClient.insertOrReplace(entry.partitionKey, entry.rowKey, entry.botData, false, errorCallback);
-		}, callback);
+	initializeStorageClient() {
+		if (!this.initializeTableClientPromise) {
+			this.initializeTableClientPromise = new Promise((resolve, reject) => {
+				this.storageClient.initialize((error, db) => {
+					if (error) {
+						reject(new Error(`Failed to initialize MongoDB client. Error: ${error.toString()}`));
+					} else {
+						resolve(db);
+					}
+				});
+			});
+		}
+		return this.initializeTableClientPromise;
 	}
 }
