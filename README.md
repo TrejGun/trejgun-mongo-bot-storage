@@ -2,14 +2,14 @@
 
 es5
 ```js
-var storage = require("mongo-bot-storage");
+var storage = require("@trejgun/mongo-bot-storage");
 var MongoDbBotStorage = storage.MongoDbBotStorage;
 var MongoDBStorageClient = storage.MongoDBStorageClient;
 ```
 
 es6
 ```js
-import {MongoDbBotStorage, MongoDBStorageClient} from "mongo-bot-storage";
+import {MongoDbBotStorage, MongoDBStorageClient} from "@trejgun/mongo-bot-storage";
 ```
 
 
