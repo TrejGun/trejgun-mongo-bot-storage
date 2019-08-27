@@ -11,19 +11,15 @@ function replace(obj, target, replacement) {
       case Array:
         {
           // Do a recursive call on all values in object, AND substitute key values using `String.prototype.replace`
-          return obj.map(function (item) {
-            return replace(item, target, replacement);
-          });
+          return obj.map(item => replace(item, target, replacement));
         }
 
       case Object:
         {
           // For values that aren't objects or arrays, simply return the value
-          return Object.keys(obj).reduce(function (memo, key) {
-            return Object.assign(memo, {
-              [key.replace(target, replacement)]: replace(obj[key], target, replacement)
-            });
-          }, {});
+          return Object.keys(obj).reduce((memo, key) => Object.assign(memo, {
+            [key.replace(target, replacement)]: replace(obj[key], target, replacement)
+          }), {});
         }
 
       default:

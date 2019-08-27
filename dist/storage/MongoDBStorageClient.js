@@ -1,36 +1,56 @@
-import MongoClient from "mongodb";
-import replace from "../utils/replace";
+"use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
-export default class MongoDBStorageClient /* implements IStorageClient */ {
-  options = {
-    collectionName: "sessions",
-  };
+var _mongodb = _interopRequireDefault(require("mongodb"));
 
+var _replace = _interopRequireDefault(require("../utils/replace"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+class MongoDBStorageClient
+/* implements IStorageClient */
+{
   constructor(options) {
+    _defineProperty(this, "options", {
+      collectionName: "sessions"
+    });
+
     Object.assign(this.options, options);
   }
 
   retrieve(partitionKey, rowKey, callback) {
     this.collection.findOne({
       partitionKey,
-      rowKey,
-    }, (error, result) => callback(error, replace(result, /@/g, ".")));
+      rowKey
+    }, (error, result) => callback(error, (0, _replace.default)(result, /@/g, ".")));
   }
 
   insertOrReplace(partitionKey, rowKey, data, callback) {
-    this.collection.findOneAndUpdate({partitionKey, rowKey}, {
+    this.collection.findOneAndUpdate({
+      partitionKey,
+      rowKey
+    }, {
       partitionKey,
       rowKey,
-      data: replace(data, /\./g, "@"),
-    }, {upsert: true, multi: false}, callback);
+      data: (0, _replace.default)(data, /\./g, "@")
+    }, {
+      upsert: true,
+      multi: false
+    }, callback);
   }
 
   initialize(callback) {
     const cb = this.handleNewConnection(callback);
+
     if (this.options.url) {
       // New native connection using url + mongoOptions
-      MongoClient.connect(this.options.url, this.options.mongoOptions || {}, cb);
+      _mongodb.default.connect(this.options.url, this.options.mongoOptions || {}, cb);
     } else if (this.options.mongooseConnection) {
       // Re-use existing or upcoming mongoose connection
       if (this.options.mongooseConnection.readyState === 1) {
@@ -46,9 +66,7 @@ export default class MongoDBStorageClient /* implements IStorageClient */ {
         this.options.db.open(cb);
       }
     } else if (this.options.dbPromise) {
-      this.options.dbPromise
-        .then(db => cb(null, db))
-        .catch(err => cb(err));
+      this.options.dbPromise.then(db => cb(null, db)).catch(err => cb(err));
     } else {
       throw new Error("Connection strategy not found");
     }
@@ -59,7 +77,11 @@ export default class MongoDBStorageClient /* implements IStorageClient */ {
       if (!error) {
         this.collection = db.collection(this.options.collectionName);
       }
+
       callback(error, db);
     };
   }
+
 }
+
+exports.default = MongoDBStorageClient;

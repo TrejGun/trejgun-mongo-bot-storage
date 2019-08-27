@@ -1,13 +1,13 @@
 {
   "plugins": [
-    "transform-class-properties"
+    "@babel/proposal-class-properties"
   ],
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "targets": {
-          "node": "4"
+          "node": 8
         }
       }
     ]

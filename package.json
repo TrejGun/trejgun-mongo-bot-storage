@@ -1,54 +1,58 @@
 {
-  "name": "mongo-bot-storage",
-  "title": "mongo bot storage",
+  "author": {
+    "email": "TrejGun+OpenSource@gmail.com",
+    "name": "TrejGun"
+  },
+  "bugs": {
+    "url": "https://github.com/TrejGun/trejgun-mongo-bot-storage/issues"
+  },
+  "dependencies": {
+    "async": "3.1.0",
+    "mongodb": "3.3.1"
+  },
   "description": "mongo bot storage",
-  "version": "0.0.4",
-  "homepage": "http://mabp.kiev.ua/",
+  "devDependencies": {
+    "@babel/cli": "7.5.5",
+    "@babel/core": "7.5.5",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "babel-eslint": "10.0.3",
+    "eslint": "6.2.2",
+    "eslint-config-standard": "14.0.1",
+    "eslint-plugin-babel": "5.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-node": "9.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "files": [
+    "src/",
+    "dist/"
+  ],
+  "homepage": "https://github.com/TrejGun/trejgun-mongo-bot-storage#readme",
   "keywords": [
     "mongo",
     "storage",
     "BotBuilder"
   ],
-  "author": {
-    "name": "TrejGun",
-    "email": "TrejGun@gmail.com",
-    "url": "http://mabp.kiev.ua/"
-  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./src/index.js",
+  "name": "@trejgun/mongo-bot-storage",
   "repository": {
     "type": "git",
-    "url": "https://github.com/TrejGun/mongo-bot-storage.git"
-  },
-  "bugs": {
-    "url": "https://github.com/TrejGun/mongo-bot-storage/issues"
-  },
-  "main": "lib/index.js",
-  "files": [
-    "src/",
-    "lib/"
-  ],
-  "license": "MIT",
-  "dependencies": {
-    "async": "2.3.0",
-    "mongodb": "2.2.31"
-  },
-  "devDependencies": {
-    "babel-cli": "7.0.0-alpha.17",
-    "babel-core": "7.0.0-alpha.17",
-    "babel-eslint": "7.2.3",
-    "babel-plugin-transform-class-properties": "7.0.0-alpha.17",
-    "babel-preset-env": "2.0.0-alpha.17",
-    "eslint": "4.3.0",
-    "eslint-config-airbnb-base": "11.3.1",
-    "eslint-plugin-import": "2.7.0",
-    "rimraf": "2.6.1"
-  },
-  "engines": {
-    "node": ">=4.0.0"
+    "url": "https://github.com/TrejGun/trejgun-mongo-bot-storage.git"
   },
   "scripts": {
-    "lint": "node_modules/.bin/eslint ./src --quiet --fix",
-    "prebuild": "node_modules/.bin/rimraf ./lib",
-    "build": "node_modules/.bin/babel -d ./lib ./src",
-    "release": "release () { git checkout master && git pull origin master && if [ -z $1 ]; then npm version patch; else npm version $1; fi && git push origin master --tags && npm publish; }; release"
-  }
+    "build": "babel -d ./dist ./src --delete-dir-on-start",
+    "lint": "eslint . --fix",
+    "prepublish": "npm run build"
+  },
+  "sideEffects": false,
+  "title": "-=Mongo Bot Storage=-",
+  "type": "module",
+  "version": "0.0.5"
 }
