@@ -7,7 +7,11 @@ export default function replace(obj, target, replacement) {
       }
       case Object: {
         // For values that aren't objects or arrays, simply return the value
-        return Object.keys(obj).reduce((memo, key) => Object.assign(memo, {[key.replace(target, replacement)]: replace(obj[key], target, replacement)}), {});
+        return Object.keys(obj).reduce(
+          (memo, key) =>
+            Object.assign(memo, {[key.replace(target, replacement)]: replace(obj[key], target, replacement)}),
+          {},
+        );
       }
       default:
         return obj;

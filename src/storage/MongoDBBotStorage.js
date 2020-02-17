@@ -50,22 +50,27 @@ export default class MongoDbBotStorage /* implements IBotStorage */ {
         }
 
         const data = {};
-        async.each(list, (entry, errorCallback) => {
-          this.storageClient.retrieve(entry.partitionKey, entry.rowKey, (error, entity) => {
-            if (error) {
-              errorCallback(error);
-            } else if (entity) {
-              data[entry.field + HASH] = JSON.stringify(entity.data);
-              data[entry.field] = entity.data;
-              errorCallback(null);
-            } else {
-              errorCallback(null);
-            }
-          });
-        }, error => {
-          callback(error, data);
-        });
-      }).catch(callback);
+        async.each(
+          list,
+          (entry, errorCallback) => {
+            this.storageClient.retrieve(entry.partitionKey, entry.rowKey, (error, entity) => {
+              if (error) {
+                errorCallback(error);
+              } else if (entity) {
+                data[entry.field + HASH] = JSON.stringify(entity.data);
+                data[entry.field] = entity.data;
+                errorCallback(null);
+              } else {
+                errorCallback(null);
+              }
+            });
+          },
+          error => {
+            callback(error, data);
+          },
+        );
+      })
+      .catch(callback);
   }
 
   saveData(context, data, callback = Function) {
@@ -77,16 +82,35 @@ export default class MongoDbBotStorage /* implements IBotStorage */ {
           addWrite(list, data, FIELDS.UserDataField, context.userId, FIELDS.UserDataField, data.userData);
         }
         if (context.userId && context.conversationId) {
-          addWrite(list, data, FIELDS.PrivateConversationDataField, context.conversationId, context.userId, data.privateConversationData);
+          addWrite(
+            list,
+            data,
+            FIELDS.PrivateConversationDataField,
+            context.conversationId,
+            context.userId,
+            data.privateConversationData,
+          );
         }
         if (context.persistConversationData && context.conversationId) {
-          addWrite(list, data, FIELDS.ConversationDataField, context.conversationId, FIELDS.ConversationDataField, data.conversationData);
+          addWrite(
+            list,
+            data,
+            FIELDS.ConversationDataField,
+            context.conversationId,
+            FIELDS.ConversationDataField,
+            data.conversationData,
+          );
         }
 
-        async.each(list, (entry, errorCallback) => {
-          this.storageClient.insertOrReplace(entry.partitionKey, entry.rowKey, entry.botData, errorCallback);
-        }, callback);
-      }).catch(callback);
+        async.each(
+          list,
+          (entry, errorCallback) => {
+            this.storageClient.insertOrReplace(entry.partitionKey, entry.rowKey, entry.botData, errorCallback);
+          },
+          callback,
+        );
+      })
+      .catch(callback);
   }
 
   initializeStorageClient() {
