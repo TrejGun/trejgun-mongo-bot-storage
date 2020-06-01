@@ -13,9 +13,9 @@
   "description": "mongo bot storage",
   "devDependencies": {
     "@babel/cli": "7.10.1",
-    "@babel/core": "7.10.1",
+    "@babel/core": "7.10.2",
     "@babel/plugin-proposal-class-properties": "7.10.1",
-    "@babel/preset-env": "7.10.1",
+    "@babel/preset-env": "7.10.2",
     "@trejgun/eslint-config": "0.0.10",
     "babel-eslint": "10.1.0",
     "eslint": "7.1.0",
