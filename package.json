@@ -18,7 +18,7 @@
     "@babel/preset-env": "7.11.5",
     "@trejgun/eslint-config": "0.0.11",
     "babel-eslint": "10.1.0",
-    "eslint": "7.8.1",
+    "eslint": "7.9.0",
     "eslint-config-standard": "14.1.1",
     "eslint-plugin-babel": "5.3.1",
     "eslint-plugin-import": "2.22.0",
