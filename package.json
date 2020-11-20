@@ -16,7 +16,7 @@
     "@babel/core": "7.12.3",
     "@babel/plugin-proposal-class-properties": "7.12.1",
     "@babel/preset-env": "7.12.1",
-    "@trejgun/eslint-config": "0.0.12",
+    "@trejgun/eslint-config": "0.0.13",
     "babel-eslint": "10.1.0",
     "eslint": "7.13.0",
     "eslint-config-standard": "14.1.1",
