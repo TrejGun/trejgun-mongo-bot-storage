@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.MongoDbBotStorage = void 0;
 
 var _async = _interopRequireDefault(require("async"));
 
@@ -129,4 +129,4 @@ class MongoDbBotStorage
 
 }
 
-exports.default = MongoDbBotStorage;
+exports.MongoDbBotStorage = MongoDbBotStorage;

@@ -1,8 +1,7 @@
 import MongoClient from "mongodb";
 import replace from "../utils/replace";
 
-
-export default class MongoDBStorageClient /* implements IStorageClient */ {
+export class MongoDBStorageClient {
   options = {
     collectionName: "sessions",
   };
@@ -12,18 +11,26 @@ export default class MongoDBStorageClient /* implements IStorageClient */ {
   }
 
   retrieve(partitionKey, rowKey, callback) {
-    this.collection.findOne({
-      partitionKey,
-      rowKey,
-    }, (error, result) => callback(error, replace(result, /@/g, ".")));
+    this.collection.findOne(
+      {
+        partitionKey,
+        rowKey,
+      },
+      (error, result) => callback(error, replace(result, /@/g, ".")),
+    );
   }
 
   insertOrReplace(partitionKey, rowKey, data, callback) {
-    this.collection.findOneAndUpdate({partitionKey, rowKey}, {
-      partitionKey,
-      rowKey,
-      data: replace(data, /\./g, "@"),
-    }, {upsert: true, multi: false}, callback);
+    this.collection.findOneAndUpdate(
+      {partitionKey, rowKey},
+      {
+        partitionKey,
+        rowKey,
+        data: replace(data, /\./g, "@"),
+      },
+      {upsert: true, multi: false},
+      callback,
+    );
   }
 
   initialize(callback) {
@@ -46,9 +53,7 @@ export default class MongoDBStorageClient /* implements IStorageClient */ {
         this.options.db.open(cb);
       }
     } else if (this.options.dbPromise) {
-      this.options.dbPromise
-        .then(db => cb(null, db))
-        .catch(err => cb(err));
+      this.options.dbPromise.then(db => cb(null, db)).catch(err => cb(err));
     } else {
       throw new Error("Connection strategy not found");
     }

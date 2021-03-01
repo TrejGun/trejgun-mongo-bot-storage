@@ -1,6 +1,5 @@
 import async from "async";
 
-
 const HASH = "HASH";
 const FIELDS = {
   UserDataField: "userData",
@@ -17,7 +16,7 @@ function addWrite(list, data, field, partitionKey, rowKey, botData) {
   }
 }
 
-export default class MongoDbBotStorage /* implements IBotStorage */ {
+export class MongoDbBotStorage /* implements IBotStorage */ {
   constructor(storageClient) {
     this.storageClient = storageClient;
   }

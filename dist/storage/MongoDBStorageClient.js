@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.MongoDBStorageClient = void 0;
 
 var _mongodb = _interopRequireDefault(require("mongodb"));
 
@@ -13,9 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-class MongoDBStorageClient
-/* implements IStorageClient */
-{
+class MongoDBStorageClient {
   constructor(options) {
     _defineProperty(this, "options", {
       collectionName: "sessions"
@@ -84,4 +82,4 @@ class MongoDBStorageClient
 
 }
 
-exports.default = MongoDBStorageClient;
+exports.MongoDBStorageClient = MongoDBStorageClient;

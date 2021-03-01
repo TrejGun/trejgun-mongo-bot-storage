@@ -2,5 +2,10 @@
   "root": true,
   "extends": [
     "@trejgun/eslint-config/presets/js"
-  ]
+  ],
+  "parserOptions": {
+    "babelOptions": {
+      "configFile": "./.babelrc"
+    }
+  }
 }
