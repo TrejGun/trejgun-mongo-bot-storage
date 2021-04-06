@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "async": "3.2.0",
-    "mongodb": "3.6.5"
+    "mongodb": "3.6.6"
   },
   "description": "mongo bot storage",
   "devDependencies": {
