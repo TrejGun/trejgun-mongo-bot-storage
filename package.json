@@ -18,7 +18,7 @@
     "@babel/eslint-plugin": "7.13.16",
     "@babel/plugin-proposal-class-properties": "7.13.0",
     "@babel/preset-env": "7.14.1",
-    "@trejgun/eslint-config": "0.1.5",
+    "@trejgun/eslint-config": "0.1.6",
     "eslint": "7.25.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-config-standard": "16.0.2",
