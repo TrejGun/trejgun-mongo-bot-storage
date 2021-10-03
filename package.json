@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "async": "3.2.1",
-    "mongodb": "3.7.1"
+    "mongodb": "4.1.2"
   },
   "description": "mongo bot storage",
   "devDependencies": {
@@ -32,7 +32,7 @@
     "prettier": "2.4.1"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.9.0"
   },
   "files": [
     "src/",
@@ -61,5 +61,5 @@
   "sideEffects": false,
   "title": "-=Mongo Bot Storage=-",
   "type": "module",
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
