@@ -8,16 +8,16 @@
   },
   "dependencies": {
     "async": "3.2.3",
-    "mongodb": "4.3.0"
+    "mongodb": "4.3.1"
   },
   "description": "mongo bot storage",
   "devDependencies": {
     "@babel/cli": "7.16.8",
-    "@babel/core": "7.16.7",
+    "@babel/core": "7.16.10",
     "@babel/eslint-parser": "7.16.5",
     "@babel/eslint-plugin": "7.16.5",
     "@babel/plugin-proposal-class-properties": "7.16.7",
-    "@babel/preset-env": "7.16.8",
+    "@babel/preset-env": "7.16.11",
     "@gemunion/eslint-config": "0.1.10",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.3.0",
