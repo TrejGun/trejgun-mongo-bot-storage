@@ -1,7 +1,7 @@
 {
   "root": true,
   "extends": [
-    "@trejgun/eslint-config/presets/js"
+    "@gemunion/eslint-config/presets/js"
   ],
   "parserOptions": {
     "babelOptions": {
