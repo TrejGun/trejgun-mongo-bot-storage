@@ -18,7 +18,7 @@
     "@babel/eslint-plugin": "7.16.5",
     "@babel/plugin-proposal-class-properties": "7.16.7",
     "@babel/preset-env": "7.16.11",
-    "@gemunion/eslint-config": "1.0.1",
+    "@gemunion/eslint-config": "1.0.4",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-standard": "16.0.3",
@@ -27,7 +27,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-promise": "6.0.0",
     "husky": "4.3.8",
-    "lint-staged": "12.3.4",
+    "lint-staged": "12.3.5",
     "prettier": "2.5.1"
   },
   "engines": {
