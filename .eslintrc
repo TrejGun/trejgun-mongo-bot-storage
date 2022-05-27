@@ -1,5 +1,4 @@
 {
-  "root": true,
   "extends": [
     "@gemunion/eslint-config/presets/js"
   ],
@@ -7,5 +6,6 @@
     "babelOptions": {
       "configFile": "./.babelrc"
     }
-  }
+  },
+  "root": true
 }
