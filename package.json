@@ -13,22 +13,22 @@
   "description": "mongo bot storage",
   "devDependencies": {
     "@babel/cli": "7.17.10",
-    "@babel/core": "7.18.2",
+    "@babel/core": "7.18.5",
     "@babel/eslint-parser": "7.18.2",
     "@babel/eslint-plugin": "7.17.7",
     "@babel/plugin-proposal-class-properties": "7.17.12",
     "@babel/preset-env": "7.18.2",
     "@gemunion/eslint-config": "2.0.1",
-    "eslint": "8.17.0",
+    "eslint": "8.18.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-n": "15.2.2",
+    "eslint-plugin-n": "15.2.3",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-promise": "6.0.0",
     "husky": "4.3.8",
-    "lint-staged": "13.0.1",
-    "prettier": "2.6.2"
+    "lint-staged": "13.0.2",
+    "prettier": "2.7.1"
   },
   "engines": {
     "node": ">=12.9.0"
