@@ -1,4 +1,5 @@
-import MongoClient from "mongodb";
+import {MongoClient} from "mongodb";
+
 import replace from "../utils/replace";
 
 export class MongoDBStorageClient {

@@ -4,7 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = replace;
-
 function replace(obj, target, replacement) {
   try {
     switch (obj.constructor) {
@@ -13,7 +12,6 @@ function replace(obj, target, replacement) {
           // Do a recursive call on all values in object, AND substitute key values using `String.prototype.replace`
           return obj.map(item => replace(item, target, replacement));
         }
-
       case Object:
         {
           // For values that aren't objects or arrays, simply return the value
@@ -21,7 +19,6 @@ function replace(obj, target, replacement) {
             [key.replace(target, replacement)]: replace(obj[key], target, replacement)
           }), {});
         }
-
       default:
         return obj;
     }

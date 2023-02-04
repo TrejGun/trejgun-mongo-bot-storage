@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "async": "3.2.4",
-    "mongodb": "4.13.0"
+    "mongodb": "5.0.0"
   },
   "description": "mongo bot storage",
   "devDependencies": {
@@ -60,5 +60,5 @@
   "sideEffects": false,
   "title": "-=Mongo Bot Storage=-",
   "type": "module",
-  "version": "0.0.6"
+  "version": "0.1.0"
 }

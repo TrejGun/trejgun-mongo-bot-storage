@@ -4,31 +4,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.MongoDBStorageClient = void 0;
-
 var _mongodb = _interopRequireDefault(require("mongodb"));
-
 var _replace = _interopRequireDefault(require("../utils/replace"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return typeof key === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (typeof input !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (typeof res !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 class MongoDBStorageClient {
   constructor(options) {
     _defineProperty(this, "options", {
       collectionName: "sessions"
     });
-
     Object.assign(this.options, options);
   }
-
   retrieve(partitionKey, rowKey, callback) {
     this.collection.findOne({
       partitionKey,
       rowKey
     }, (error, result) => callback(error, (0, _replace.default)(result, /@/g, ".")));
   }
-
   insertOrReplace(partitionKey, rowKey, data, callback) {
     this.collection.findOneAndUpdate({
       partitionKey,
@@ -42,10 +36,8 @@ class MongoDBStorageClient {
       multi: false
     }, callback);
   }
-
   initialize(callback) {
     const cb = this.handleNewConnection(callback);
-
     if (this.options.url) {
       // New native connection using url + mongoOptions
       _mongodb.default.connect(this.options.url, this.options.mongoOptions || {}, cb);
@@ -69,17 +61,13 @@ class MongoDBStorageClient {
       throw new Error("Connection strategy not found");
     }
   }
-
   handleNewConnection(callback) {
     return (error, db) => {
       if (!error) {
         this.collection = db.collection(this.options.collectionName);
       }
-
       callback(error, db);
     };
   }
-
 }
-
 exports.MongoDBStorageClient = MongoDBStorageClient;

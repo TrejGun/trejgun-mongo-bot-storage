@@ -15,7 +15,5 @@ Object.defineProperty(exports, "MongoDbBotStorage", {
     return _MongoDBBotStorage.MongoDbBotStorage;
   }
 });
-
 var _MongoDBBotStorage = require("./storage/MongoDBBotStorage");
-
 var _MongoDBStorageClient = require("./storage/MongoDBStorageClient");
